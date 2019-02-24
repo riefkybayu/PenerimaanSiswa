@@ -5,19 +5,65 @@
  */
 package Frame;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
  * @author Acer
  */
-public class dataadmin extends javax.swing.JFrame {
+public final class dataadmin extends javax.swing.JFrame {
 
     /**
      * Creates new form dataadmin
      */
+    private final DefaultTableModel model;
     public dataadmin() {
         initComponents();
+        model = new DefaultTableModel ( );
+             tableadmin.setShowGrid(true);
+             tableadmin.setModel(model);
+             model.addColumn("NIP");
+             model.addColumn("Nama");
+             model.addColumn("Jenis Kelamin");
+             model.addColumn("No Telepon");
+        data();
+    }
+    
+    public void data(){
+        model.getDataVector( ).removeAllElements( );
+        model.fireTableDataChanged( );
+        try {
+           Statement stat = (Statement) Db_Koneksi2.getKoneksi( ).createStatement( );
+           String sql        = "Select * from dataadmin;";
+           ResultSet res   = stat.executeQuery(sql);
+            while (res.next())  {    
+                nip.setText(res.getString("NIP"));
+                nama.setText(res.getString("Nama"));
+                if ("Laki-Laki".equals(res.getString("JenisKelamin"))) {
+                    laki.setSelected(true); }
+                if  ("Perempuan".equals(res.getString("JenisKelamin"))) {
+                    cewe.setSelected(true); }
+                notel.setText(res.getString("No_Telp"));
+            }
+        } catch (SQLException e) { }
+        try {
+                        Statement stat = (Statement) Db_Koneksi2.getKoneksi( ).createStatement( );
+                        String sql2        = "Select * from dataadmin;";
+                        ResultSet ress   = stat.executeQuery(sql2);
+                        while (ress.next())  { 
+                            Object[ ] obj = new Object[4];
+                            obj[0] = ress.getString("NIP");
+                            obj[1] = ress.getString("Nama");
+                            obj[2] = ress.getString("JenisKelamin");
+                            obj[3] = ress.getString("No_Telp");
+                            model.addRow(obj);
+                            }
+                        } catch (SQLException e) { }
     }
 
     /**
@@ -35,11 +81,11 @@ public class dataadmin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        nip = new javax.swing.JTextField();
+        nama = new javax.swing.JTextField();
+        notel = new javax.swing.JTextField();
+        laki = new javax.swing.JRadioButton();
+        cewe = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableadmin = new javax.swing.JTable();
         tblSimpan = new javax.swing.JButton();
@@ -48,12 +94,13 @@ public class dataadmin extends javax.swing.JFrame {
         tblUbah = new javax.swing.JButton();
         minimaze = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        alert = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(680, 500));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(680, 500));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -63,27 +110,27 @@ public class dataadmin extends javax.swing.JFrame {
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, -1, -1));
 
         jLabel1.setText("NIP");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, 20));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, 20));
 
         jLabel3.setText("Nama");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, 20));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, 20));
 
         jLabel4.setText("Jenis Kelamin");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 204, -1, 30));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, -1, 30));
 
         jLabel5.setText("No Telepon");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, 20));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 160, -1));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 160, -1));
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, 160, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, 20));
+        getContentPane().add(nip, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 160, -1));
+        getContentPane().add(nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 160, -1));
+        getContentPane().add(notel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 160, -1));
 
-        jk.add(jRadioButton1);
-        jRadioButton1.setText("Laki-laki");
-        getContentPane().add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, -1, -1));
+        jk.add(laki);
+        laki.setText("Laki-laki");
+        getContentPane().add(laki, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, -1, -1));
 
-        jk.add(jRadioButton2);
-        jRadioButton2.setText("Perempuan");
-        getContentPane().add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, -1, -1));
+        jk.add(cewe);
+        cewe.setText("Perempuan");
+        getContentPane().add(cewe, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, -1, -1));
 
         tableadmin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -101,6 +148,11 @@ public class dataadmin extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableadmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableadminMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableadmin);
         if (tableadmin.getColumnModel().getColumnCount() > 0) {
             tableadmin.getColumnModel().getColumn(0).setResizable(false);
@@ -114,6 +166,7 @@ public class dataadmin extends javax.swing.JFrame {
         tblSimpan.setBackground(new java.awt.Color(0, 51, 255));
         tblSimpan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tblSimpan.setForeground(new java.awt.Color(255, 255, 255));
+        tblSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconTambah.png"))); // NOI18N
         tblSimpan.setText("Simpan");
         tblSimpan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblSimpan.addActionListener(new java.awt.event.ActionListener() {
@@ -126,6 +179,7 @@ public class dataadmin extends javax.swing.JFrame {
         tblHapus.setBackground(new java.awt.Color(0, 51, 255));
         tblHapus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tblHapus.setForeground(new java.awt.Color(255, 255, 255));
+        tblHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconHapus.png"))); // NOI18N
         tblHapus.setText(" HAPUS");
         tblHapus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblHapus.addActionListener(new java.awt.event.ActionListener() {
@@ -138,6 +192,7 @@ public class dataadmin extends javax.swing.JFrame {
         tblKeluar.setBackground(new java.awt.Color(0, 51, 255));
         tblKeluar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tblKeluar.setForeground(new java.awt.Color(255, 255, 255));
+        tblKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/home2.png"))); // NOI18N
         tblKeluar.setText("   HOME");
         tblKeluar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblKeluar.addActionListener(new java.awt.event.ActionListener() {
@@ -150,6 +205,7 @@ public class dataadmin extends javax.swing.JFrame {
         tblUbah.setBackground(new java.awt.Color(0, 51, 255));
         tblUbah.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tblUbah.setForeground(new java.awt.Color(255, 255, 255));
+        tblUbah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconUbah.png"))); // NOI18N
         tblUbah.setText("Ubah");
         tblUbah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblUbah.addActionListener(new java.awt.event.ActionListener() {
@@ -159,6 +215,7 @@ public class dataadmin extends javax.swing.JFrame {
         });
         getContentPane().add(tblUbah, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, 110, 30));
 
+        minimaze.setToolTipText("Minimaze");
         minimaze.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 minimazeMouseClicked(evt);
@@ -166,12 +223,21 @@ public class dataadmin extends javax.swing.JFrame {
         });
         getContentPane().add(minimaze, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 3, 30, 20));
 
+        close.setToolTipText("Close");
         close.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 closeMouseClicked(evt);
             }
         });
         getContentPane().add(close, new org.netbeans.lib.awtextra.AbsoluteConstraints(647, 3, 30, 20));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("Input Data Admin");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 4, -1, 20));
+
+        alert.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        alert.setForeground(new java.awt.Color(255, 0, 0));
+        getContentPane().add(alert, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, 210, 20));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/bg.png"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -181,19 +247,47 @@ public class dataadmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tblSimpanActionPerformed
-        
+    if (nip.getText().trim().equals("") || nama.getText().trim().equals("")|| notel.getText().trim().equals("")) 
+            { alert.setText("Harap Masukkan Data Dengan Benar");
+        } else {
+            alert.setText("");
+        String nip2 = nip.getText();
+        String nama2 = nama.getText();
+        String Jenis = null;
+            if (laki.isSelected()) {
+                Jenis ="Laki-Laki";
+            }
+            else if (cewe.isSelected()) {
+                Jenis ="Perempuan";
+            }
+        String notel2 = notel.getText();
+        try {
+                try (Statement statement = (Statement)Db_Koneksi2.getKoneksi().createStatement()) {
+                    statement.executeUpdate("insert into dataadmin values ('"+nip2+"','"+nama2+"','"+Jenis+"','"+notel2+"');");
+                }
+                JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+                data();
+        }catch (SQLException t){
+                JOptionPane.showMessageDialog(null, "Data gagal disimpan");
+            }
+       }        
     }//GEN-LAST:event_tblSimpanActionPerformed
 
     private void tblHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tblHapusActionPerformed
         int confirm2 = JOptionPane.showConfirmDialog(this,
-            "Anda Yakin Untuk Menghapus Data?",
-            "Konfirmasi",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE);
-
+        "Anda Yakin Untuk Menghapus Data?",
+        "Konfirmasi",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.QUESTION_MESSAGE);
         if (confirm2 == JOptionPane.YES_OPTION) {
-
-            
+        try {
+            Statement statement = (Statement) Db_Koneksi2.getKoneksi().createStatement();
+            statement.executeUpdate("delete from dataadmin where NIP= ('"+nip.getText()+"');");
+            JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
+            data();
+        }catch (SQLException t) {
+            JOptionPane.showMessageDialog(null, "Data gagal dihapus");
+        }
         }
     }//GEN-LAST:event_tblHapusActionPerformed
 
@@ -202,6 +296,27 @@ public class dataadmin extends javax.swing.JFrame {
     }//GEN-LAST:event_tblKeluarActionPerformed
 
     private void tblUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tblUbahActionPerformed
+          if (nip.getText().trim().equals("") || 
+            nama.getText().trim().equals("") || notel.getText().trim().equals("")) {
+            javax.swing.JOptionPane.showMessageDialog(null,
+                        "Isi semua data dengan benar",
+                        "Pesan Error",
+                        javax.swing.JOptionPane.ERROR_MESSAGE);
+            } else {
+            String nip2 = nip.getText();
+            String Nama = nama.getText();
+            String Jenis_Kelamin = null;
+            if (laki.isSelected()) { Jenis_Kelamin ="Laki-Laki"; }
+            if (cewe.isSelected()) {  Jenis_Kelamin ="Perempuan"; }
+            String notel2 = notel.getText();
+        try {
+            try (Statement statement = (Statement) Db_Koneksi2.getKoneksi().createStatement()) {
+                statement.executeUpdate("update dataadmin set Nama='"+Nama+"', JenisKelamin='"+Jenis_Kelamin+"', No_telp='"+notel2+"' where NIP='"+nip2+"';");
+                }
+            JOptionPane.showMessageDialog(null, "Data berhasil rubah");
+            data();
+        } catch (SQLException t){ JOptionPane.showMessageDialog(null, "Data gagal disimpan"); }
+        }
         
     }//GEN-LAST:event_tblUbahActionPerformed
 
@@ -217,6 +332,19 @@ public class dataadmin extends javax.swing.JFrame {
         JOptionPane.QUESTION_MESSAGE);
         if (confirm == JOptionPane.YES_OPTION) { System.exit(0); }
     }//GEN-LAST:event_closeMouseClicked
+
+    private void tableadminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableadminMouseClicked
+       int row = tableadmin.getSelectedRow();
+        if (row != -1) {
+            nip.setText(tableadmin.getValueAt(row, 0).toString());
+            nama.setText(tableadmin.getValueAt(row, 1).toString());
+            if ("Laki-Laki".equals(tableadmin.getValueAt(row, 2).toString())) {
+                laki.setSelected(true); }
+            if ("Perempuan".equals(tableadmin.getValueAt(row, 2).toString())) {
+                cewe.setSelected(true); }
+            notel.setText(tableadmin.getValueAt(row, 3).toString());
+        }
+    }//GEN-LAST:event_tableadminMouseClicked
 
     /**
      * @param args the command line arguments
@@ -254,21 +382,23 @@ public class dataadmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel alert;
     private javax.swing.JLabel background;
+    private javax.swing.JRadioButton cewe;
     private javax.swing.JLabel close;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.ButtonGroup jk;
+    private javax.swing.JRadioButton laki;
     private javax.swing.JLabel minimaze;
+    private javax.swing.JTextField nama;
+    private javax.swing.JTextField nip;
+    private javax.swing.JTextField notel;
     private javax.swing.JTable tableadmin;
     private javax.swing.JButton tblHapus;
     private javax.swing.JButton tblKeluar;

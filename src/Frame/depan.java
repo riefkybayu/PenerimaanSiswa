@@ -5,6 +5,11 @@
  */
 package Frame;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Acer
@@ -27,13 +32,11 @@ public class depan extends javax.swing.JFrame {
     private void initComponents() {
 
         user = new javax.swing.JTextField();
-        pass = new javax.swing.JTextField();
         loginadmin = new javax.swing.JButton();
-        loginguest = new javax.swing.JButton();
-        Silahkan = new javax.swing.JLabel();
-        Silahkan1 = new javax.swing.JLabel();
+        loginasadmin = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        pass = new javax.swing.JPasswordField();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -49,12 +52,6 @@ public class depan extends javax.swing.JFrame {
         getContentPane().add(user);
         user.setBounds(520, 180, 230, 28);
 
-        pass.setBackground(new java.awt.Color(153, 204, 255));
-        pass.setToolTipText("password");
-        pass.setSelectedTextColor(new java.awt.Color(204, 204, 204));
-        getContentPane().add(pass);
-        pass.setBounds(520, 229, 230, 28);
-
         loginadmin.setBackground(new java.awt.Color(153, 204, 255));
         loginadmin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         loginadmin.setText("LOGIN ADMIN");
@@ -68,28 +65,10 @@ public class depan extends javax.swing.JFrame {
         getContentPane().add(loginadmin);
         loginadmin.setBounds(460, 280, 120, 40);
 
-        loginguest.setBackground(new java.awt.Color(255, 0, 51));
-        loginguest.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        loginguest.setText("LOGIN GUEST");
-        loginguest.setToolTipText("login guest");
-        loginguest.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        loginguest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginguestActionPerformed(evt);
-            }
-        });
-        getContentPane().add(loginguest);
-        loginguest.setBounds(460, 380, 120, 40);
-
-        Silahkan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        Silahkan.setText("LOGIN AS GUEST :");
-        getContentPane().add(Silahkan);
-        Silahkan.setBounds(460, 350, 250, 20);
-
-        Silahkan1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        Silahkan1.setText("LOGIN AS ADMIN :");
-        getContentPane().add(Silahkan1);
-        Silahkan1.setBounds(460, 140, 250, 20);
+        loginasadmin.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        loginasadmin.setText("LOGIN AS ADMIN :");
+        getContentPane().add(loginasadmin);
+        loginasadmin.setBounds(460, 140, 250, 20);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("PADA SMP PGRI 1 CIPUTAT");
@@ -101,6 +80,10 @@ public class depan extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(30, 180, 400, 40);
 
+        pass.setBackground(new java.awt.Color(153, 204, 255));
+        getContentPane().add(pass);
+        pass.setBounds(520, 229, 230, 28);
+
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/bg1.png"))); // NOI18N
         background.setText("jLabel2");
         getContentPane().add(background);
@@ -110,12 +93,35 @@ public class depan extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void loginguestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginguestActionPerformed
-        
-    }//GEN-LAST:event_loginguestActionPerformed
-
     private void loginadminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginadminActionPerformed
-        new home().setVisible(true); dispose();
+        try {
+                Statement stat2 = (Statement) Db_Koneksi2.getKoneksi( ).createStatement( );
+                String sql        = "Select*from login;";
+                ResultSet ress;
+                ress = stat2.executeQuery(sql);
+                if (ress.next()) {
+                    if (user.getText().equals(ress.getString("username")) &&
+                        pass.getText().equals(ress.getString("password"))) {
+                        javax.swing.JOptionPane.showMessageDialog(null,
+                        "Anda berhasil masuk",
+                        "Konfirmasi",
+                        javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                        new home().setVisible(true);
+                    }
+                    else {
+                                user.setText("");
+                                pass.setText("");
+                                javax.swing.JOptionPane.showMessageDialog(null,
+                        "Username atau Password salah",
+                        "Coba Lagi",
+                        javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                                user.requestFocus();
+                     }
+                }
+                ress.close(); 
+                } catch (SQLException e) { }
+      
     }//GEN-LAST:event_loginadminActionPerformed
 
     /**
@@ -154,14 +160,12 @@ public class depan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Silahkan;
-    private javax.swing.JLabel Silahkan1;
     private javax.swing.JLabel background;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JButton loginadmin;
-    private javax.swing.JButton loginguest;
-    private javax.swing.JTextField pass;
+    private javax.swing.JLabel loginasadmin;
+    private javax.swing.JPasswordField pass;
     private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 }

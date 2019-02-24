@@ -42,11 +42,9 @@ public class home extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Aplikasi Penerimaan Siswa Baru");
@@ -133,10 +131,6 @@ public class home extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem4);
 
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconProses (2).png"))); // NOI18N
-        jMenuItem5.setText("Atribut Sekolah");
-        jMenu2.add(jMenuItem5);
-
         jMenuBar1.add(jMenu2);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconOutput (2).png"))); // NOI18N
@@ -149,10 +143,6 @@ public class home extends javax.swing.JFrame {
         jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconOutput (2).png"))); // NOI18N
         jMenuItem7.setText("Pembayaran");
         jMenu3.add(jMenuItem7);
-
-        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconOutput (2).png"))); // NOI18N
-        jMenuItem8.setText("Pembagian Atribut");
-        jMenu3.add(jMenuItem8);
 
         jMenuBar1.add(jMenu3);
 
@@ -235,10 +225,8 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JLabel selamatdatang;
     private javax.swing.JLabel selamatdatang1;
     private javax.swing.JLabel smp;

@@ -5,20 +5,91 @@
  */
 package Frame;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
  * @author Acer
  */
-public class isiForm extends javax.swing.JFrame {
+public final class isiForm extends javax.swing.JFrame {
 
     /**
      * Creates new form isiForm
      */
+    private final DefaultTableModel model;
     public isiForm() {
         initComponents();
+        tblUbah.setEnabled(false); tblHapus.setEnabled(false);
+        model = new DefaultTableModel ( );
+             tabelsiswa.setShowGrid(true);
+             tabelsiswa.setModel(model);
+             model.addColumn("NIS/NISN");
+             model.addColumn("Nama");
+             model.addColumn("Asal Sekolah");
+             model.addColumn("Jenis Kelamin");
+             model.addColumn("Tempat, Tanggal Lahir");
+             model.addColumn("Agama"); 
+             model.addColumn("Nama Orang Tua");
+             model.addColumn("Alamat");
+             model.addColumn("No_Telepon");
+        data();
     }
+    public void data(){
+        model.getDataVector( ).removeAllElements( );
+        model.fireTableDataChanged( );
+                    try {
+                        Statement stat = (Statement) Db_Koneksi2.getKoneksi( ).createStatement( );
+                        String sql2        = "Select * from datasiswabaru order by Nama asc;";
+                        ResultSet ress   = stat.executeQuery(sql2);
+                        while (ress.next())  { 
+                            Object[ ] obj = new Object[9];
+                            obj[0] = ress.getString("NIS");
+                            obj[1] = ress.getString("Nama"); 
+                            obj[2] = ress.getString("Asal");
+                            obj[3] = ress.getString("Jenkel");
+                            obj[4] = ress.getString("TTL"); 
+                            obj[5] = ress.getString("Agama"); 
+                            obj[6] = ress.getString("NamaOrtu"); 
+                            obj[7] = ress.getString("Alamat");
+                            obj[8] = ress.getString("No_Telp");
+                            model.addRow(obj);
+                                TableColumn column;
+                                tabelsiswa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF); 
+                                column = tabelsiswa.getColumnModel().getColumn(0); 
+                                column.setPreferredWidth(150);
+                                column = tabelsiswa.getColumnModel().getColumn(1); 
+                                column.setPreferredWidth(150);
+                                column = tabelsiswa.getColumnModel().getColumn(2); 
+                                column.setPreferredWidth(150); 
+                                column = tabelsiswa.getColumnModel().getColumn(3); 
+                                column.setPreferredWidth(100); 
+                                column = tabelsiswa.getColumnModel().getColumn(4); 
+                                column.setPreferredWidth(150); 
+                                column = tabelsiswa.getColumnModel().getColumn(5); 
+                                column.setPreferredWidth(90); 
+                                column = tabelsiswa.getColumnModel().getColumn(6); 
+                                column.setPreferredWidth(150); 
+                                column = tabelsiswa.getColumnModel().getColumn(7); 
+                                column.setPreferredWidth(270); 
+                                column = tabelsiswa.getColumnModel().getColumn(8); 
+                                column.setPreferredWidth(130);
+                            }
+                        } catch (SQLException e) { }
+    }
+    private void bersih() {
+       nisn.setText("");
+       nama.setText("");
+       asal.setText("");
+       ttl.setText("");
+       ortu.setText("");
+       alamat.setText("");
+       notel.setText("");
+   }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,6 +100,7 @@ public class isiForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jk = new javax.swing.ButtonGroup();
         tblMinimaze = new javax.swing.JLabel();
         tblExit = new javax.swing.JLabel();
         tabel = new javax.swing.JScrollPane();
@@ -57,10 +129,11 @@ public class isiForm extends javax.swing.JFrame {
         alamat = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         notel = new javax.swing.JTextField();
-        nis = new javax.swing.JTextField();
+        asal = new javax.swing.JTextField();
         nama = new javax.swing.JTextField();
-        noabsen = new javax.swing.JTextField();
+        nisn = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -92,7 +165,7 @@ public class isiForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "No", "NIS / NISN", "Nama", "Jenis Kelamin", "Tempat, Tanggal Lahir", "Agama", "Nama Orang Tua", "Alamat"
+                "NIS / NISN", "Asal Sekolah", "Nama", "Jenis Kelamin", "Tempat, Tanggal Lahir", "Agama", "Nama Orang Tua", "Alamat"
             }
         ));
         tabelsiswa.setGridColor(new java.awt.Color(0, 102, 255));
@@ -109,6 +182,7 @@ public class isiForm extends javax.swing.JFrame {
         tblSimpan.setBackground(new java.awt.Color(0, 51, 255));
         tblSimpan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tblSimpan.setForeground(new java.awt.Color(255, 255, 255));
+        tblSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconTambah.png"))); // NOI18N
         tblSimpan.setText("SIMPAN");
         tblSimpan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblSimpan.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +195,7 @@ public class isiForm extends javax.swing.JFrame {
         tblBatal.setBackground(new java.awt.Color(0, 51, 255));
         tblBatal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tblBatal.setForeground(new java.awt.Color(255, 255, 255));
+        tblBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconCancel.png"))); // NOI18N
         tblBatal.setText("BATAL");
         tblBatal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblBatal.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +208,7 @@ public class isiForm extends javax.swing.JFrame {
         tblUbah.setBackground(new java.awt.Color(0, 51, 255));
         tblUbah.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tblUbah.setForeground(new java.awt.Color(255, 255, 255));
+        tblUbah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconUbah.png"))); // NOI18N
         tblUbah.setText("UBAH");
         tblUbah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblUbah.addActionListener(new java.awt.event.ActionListener() {
@@ -145,6 +221,7 @@ public class isiForm extends javax.swing.JFrame {
         tblHapus.setBackground(new java.awt.Color(0, 51, 255));
         tblHapus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tblHapus.setForeground(new java.awt.Color(255, 255, 255));
+        tblHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconHapus.png"))); // NOI18N
         tblHapus.setText("HAPUS");
         tblHapus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblHapus.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +234,7 @@ public class isiForm extends javax.swing.JFrame {
         tblKeluar.setBackground(new java.awt.Color(0, 51, 255));
         tblKeluar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tblKeluar.setForeground(new java.awt.Color(255, 255, 255));
+        tblKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/home2.png"))); // NOI18N
         tblKeluar.setText("   HOME");
         tblKeluar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblKeluar.addActionListener(new java.awt.event.ActionListener() {
@@ -199,11 +277,11 @@ public class isiForm extends javax.swing.JFrame {
         getContentPane().add(garis2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 90, 750, 2));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("No. Absen");
+        jLabel1.setText("NIS/NISN");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, 20));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("NIS / NISN");
+        jLabel4.setText("Asal Sekolah");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, 20));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -214,9 +292,11 @@ public class isiForm extends javax.swing.JFrame {
         jLabel6.setText("Jenis Kelamin");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, 20));
 
+        jk.add(laki);
         laki.setText("Laki-Laki");
         getContentPane().add(laki, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, -1, -1));
 
+        jk.add(cewe);
         cewe.setText("Perempuan");
         getContentPane().add(cewe, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, -1, -1));
         getContentPane().add(ttl, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 140, -1));
@@ -247,14 +327,19 @@ public class isiForm extends javax.swing.JFrame {
         jLabel11.setText("No. Telepon");
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 384, -1, 20));
         getContentPane().add(notel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 140, -1));
-        getContentPane().add(nis, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 140, -1));
+        getContentPane().add(asal, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 140, -1));
         getContentPane().add(nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 140, -1));
-        getContentPane().add(noabsen, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 40, -1));
+        getContentPane().add(nisn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 140, -1));
 
         jLabel2.setFont(new java.awt.Font("Gill Sans Ultra Bold", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 51, 255));
         jLabel2.setText(" FORMULIR PENDAFTARAN");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Input Formulir Pendaftaran");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 4, -1, 20));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/depan.png"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -280,24 +365,147 @@ public class isiForm extends javax.swing.JFrame {
     }//GEN-LAST:event_tblExitMouseClicked
 
     private void tabelsiswaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelsiswaMouseClicked
-        
+int row = tabelsiswa.getSelectedRow();
+        if (row != -1) {
+            nisn.setText(tabelsiswa.getValueAt(row, 0).toString());
+            nama.setText(tabelsiswa.getValueAt(row, 1).toString());
+            asal.setText(tabelsiswa.getValueAt(row, 2).toString());
+            if ("Laki-Laki".equals(tabelsiswa.getValueAt(row, 3).toString())) {
+                laki.setSelected(true); }
+            if ("Perempuan".equals(tabelsiswa.getValueAt(row, 3).toString())) {
+                cewe.setSelected(true); }
+            ttl.setText(tabelsiswa.getValueAt(row, 4).toString());
+            agama.setSelectedItem (tabelsiswa.getValueAt(row, 5).toString());
+            ortu.setText(tabelsiswa.getValueAt(row, 6).toString());
+            alamat.setText(tabelsiswa.getValueAt(row, 7).toString());
+            notel.setText(tabelsiswa.getValueAt(row, 8).toString());
+        }
+        tblUbah.setEnabled(true);
+        tblHapus.setEnabled(true);
+        tblSimpan.setEnabled(false);
+        nisn.setEnabled(false);        
     }//GEN-LAST:event_tabelsiswaMouseClicked
 
     private void tblSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tblSimpanActionPerformed
-        
+        if (nisn.getText().trim().equals("") || asal.getText().trim().equals("") || 
+            nama.getText().trim().equals("") || ttl.getText().trim().equals("") ||
+            ortu.getText().trim().equals("") || alamat.getText().trim().equals("") || notel.getText().trim().equals("")) {
+            javax.swing.JOptionPane.showMessageDialog(null,
+                        "Isi semua data dengan benar",
+                        "Pesan Error",
+                        javax.swing.JOptionPane.ERROR_MESSAGE);
+        } else {
+            String nisn2 = nisn.getText();
+            String asal2 = asal.getText();
+            String Nama = nama.getText();
+            String Jenis_Kelamin = null;
+            if (laki.isSelected()) {
+                Jenis_Kelamin ="Laki-Laki";
+            }
+            if (cewe.isSelected()) {
+                Jenis_Kelamin ="Perempuan";
+            }
+            String ttl2 = ttl.getText();
+            String Agama = (String) agama.getSelectedItem();
+            String ortu2 = ortu.getText();
+            String alamat2 = alamat.getText();
+            String notel2 = notel.getText();
+            String kosong ="";
+            int total = 2300000;
+            int telah = 0;
+            int sisah = total-telah;
+            String status = "Belum Lunas";
+            try {
+                try (Statement statement = (Statement)Db_Koneksi2.getKoneksi().createStatement()) {
+                    statement.executeUpdate("insert into datasiswabaru values ('"+nisn2+"','"+asal2+"','"+Nama+"','"+Jenis_Kelamin+"','"+ttl2+"','"+Agama+"','"+ortu2+"','"+alamat2+"','"+notel2+"');");
+                    statement.executeUpdate("insert into databayar values ('"+kosong+"','"+kosong+"','"+nisn2+"','"+Nama+"',"+total+","+telah+","+sisah+",'"+status+"');");
+                }
+                JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+                bersih();
+                data();
 
+            }catch (SQLException t){
+                JOptionPane.showMessageDialog(null, "Data gagal disimpan");
+            }
+        }
     }//GEN-LAST:event_tblSimpanActionPerformed
 
     private void tblBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tblBatalActionPerformed
-       
+        bersih();
+        nisn.setEnabled(true);
+        tblSimpan.setEnabled(true);
+        tblUbah.setEnabled(false);
+        tblHapus.setEnabled(false);
+        model.fireTableDataChanged( );       
     }//GEN-LAST:event_tblBatalActionPerformed
 
     private void tblUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tblUbahActionPerformed
-       
+        int confirm2 = JOptionPane.showConfirmDialog(this,
+        "Anda Yakin Untuk Merubah Data?",
+        "Konfirmasi",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.QUESTION_MESSAGE);
+
+        if (confirm2 == JOptionPane.YES_OPTION) {
+            if (nisn.getText().trim().equals("") || asal.getText().trim().equals("") || 
+            nama.getText().trim().equals("") || ttl.getText().trim().equals("") ||
+            ortu.getText().trim().equals("") || alamat.getText().trim().equals("") || notel.getText().trim().equals("")) {
+            javax.swing.JOptionPane.showMessageDialog(null,
+                        "Isi semua data dengan benar",
+                        "Pesan Error",
+                        javax.swing.JOptionPane.ERROR_MESSAGE);
+            } else {
+            String asal2 = asal.getText();
+            String nisn2 = nisn.getText();
+            String Nama = nama.getText();
+            String Jenis_Kelamin = null;
+            if (laki.isSelected()) { Jenis_Kelamin ="Laki-Laki"; }
+            if (cewe.isSelected()) {  Jenis_Kelamin ="Perempuan"; }
+            String ttl2 = ttl.getText();
+            String Agama = (String) agama.getSelectedItem();
+            String ortu2 = ortu.getText();
+            String alamat2 = alamat.getText();
+            String notel2 = notel.getText();
+        try {
+            try (Statement statement = (Statement) Db_Koneksi2.getKoneksi().createStatement()) {
+                statement.executeUpdate("update datasiswabaru set Asal='"+asal2+"', Nama='"+Nama+"', Jenkel='"+Jenis_Kelamin+"', TTL='"+ttl2+"', Agama='"+Agama+"', NamaOrtu='"+ortu2+"', Alamat='"+alamat2+"', No_Telp='"+notel2+"' where NIS='"+nisn2+"';");
+                statement.executeUpdate("update databayar set nama='"+Nama+"', nis='"+nisn2+"' where nis='"+nisn2+"';");
+                }
+            JOptionPane.showMessageDialog(null, "Data berhasil rubah");
+            nisn.setEnabled(true);
+            tblSimpan.setEnabled(true);
+            tblUbah.setEnabled(false);
+            tblHapus.setEnabled(false);
+            bersih();
+            data();
+        } catch (SQLException t){ JOptionPane.showMessageDialog(null, "Data gagal disimpan"); }
+            }
+        }
+    
     }//GEN-LAST:event_tblUbahActionPerformed
 
     private void tblHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tblHapusActionPerformed
-       
+int confirm2 = JOptionPane.showConfirmDialog(this,
+        "Anda Yakin Untuk Menghapus Data?",
+        "Konfirmasi",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.QUESTION_MESSAGE);
+        if (confirm2 == JOptionPane.YES_OPTION) {
+        try {
+            Statement statement = (Statement) Db_Koneksi2.getKoneksi().createStatement();
+            statement.executeUpdate("delete from datasiswabaru where NIS= ('"+nisn.getText()+"');");
+            statement.executeUpdate("delete from databayar where nis= ('"+nisn.getText()+"');");
+            JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
+            nisn.setEnabled(true);
+            tblHapus.setEnabled(false);
+            tblSimpan.setEnabled(true);
+            tblUbah.setEnabled(false);
+            bersih();
+            data();
+        }catch (SQLException t) {
+            JOptionPane.showMessageDialog(null, "Data gagal dihapus");
+        }
+        }       
     }//GEN-LAST:event_tblHapusActionPerformed
 
     private void tblKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tblKeluarActionPerformed
@@ -342,6 +550,7 @@ public class isiForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> agama;
     private javax.swing.JTextField alamat;
+    private javax.swing.JTextField asal;
     private javax.swing.JLabel background;
     private javax.swing.JLabel background1;
     private javax.swing.JRadioButton cewe;
@@ -351,16 +560,17 @@ public class isiForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.ButtonGroup jk;
     private javax.swing.JRadioButton laki;
     private javax.swing.JTextField nama;
-    private javax.swing.JTextField nis;
-    private javax.swing.JTextField noabsen;
+    private javax.swing.JTextField nisn;
     private javax.swing.JTextField notel;
     private javax.swing.JTextField ortu;
     private javax.swing.JScrollPane tabel;
