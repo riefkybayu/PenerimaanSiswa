@@ -40,7 +40,7 @@ public final class datasekolah extends javax.swing.JFrame {
                 web.setText(res.getString("Website"));
                 email.setText(res.getString("Email"));
                 kepsek.setText(res.getString("Nama_Kepsek"));
-                nip.setText(res.getString("NIP"));
+                nip.setText(res.getString("NIP_KEPSEK"));
                 kunci(); tblSimpan1.setEnabled(false); tblBatal.setEnabled(false); 
                 tblUbah.setEnabled(true); tblSelesai.setEnabled(false); tblhapus.setEnabled(true);
             }
@@ -221,6 +221,7 @@ public final class datasekolah extends javax.swing.JFrame {
         tblBatal.setBackground(new java.awt.Color(0, 51, 255));
         tblBatal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tblBatal.setForeground(new java.awt.Color(255, 255, 255));
+        tblBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconCancel.png"))); // NOI18N
         tblBatal.setText("  Batal");
         tblBatal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblBatal.addActionListener(new java.awt.event.ActionListener() {
@@ -233,6 +234,7 @@ public final class datasekolah extends javax.swing.JFrame {
         tblhapus.setBackground(new java.awt.Color(0, 51, 255));
         tblhapus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tblhapus.setForeground(new java.awt.Color(255, 255, 255));
+        tblhapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconHapus.png"))); // NOI18N
         tblhapus.setText("Hapus");
         tblhapus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblhapus.addActionListener(new java.awt.event.ActionListener() {
@@ -245,6 +247,7 @@ public final class datasekolah extends javax.swing.JFrame {
         tblKeluar.setBackground(new java.awt.Color(0, 51, 255));
         tblKeluar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tblKeluar.setForeground(new java.awt.Color(255, 255, 255));
+        tblKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/home2.png"))); // NOI18N
         tblKeluar.setText("   HOME");
         tblKeluar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblKeluar.addActionListener(new java.awt.event.ActionListener() {
@@ -257,6 +260,7 @@ public final class datasekolah extends javax.swing.JFrame {
         tblUbah.setBackground(new java.awt.Color(0, 51, 255));
         tblUbah.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tblUbah.setForeground(new java.awt.Color(255, 255, 255));
+        tblUbah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconUbah.png"))); // NOI18N
         tblUbah.setText("Ubah");
         tblUbah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblUbah.addActionListener(new java.awt.event.ActionListener() {
@@ -269,6 +273,7 @@ public final class datasekolah extends javax.swing.JFrame {
         tblSelesai.setBackground(new java.awt.Color(0, 51, 255));
         tblSelesai.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tblSelesai.setForeground(new java.awt.Color(255, 255, 255));
+        tblSelesai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconCeklis.png"))); // NOI18N
         tblSelesai.setText("Selesai");
         tblSelesai.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblSelesai.addActionListener(new java.awt.event.ActionListener() {
@@ -281,6 +286,7 @@ public final class datasekolah extends javax.swing.JFrame {
         tblSimpan1.setBackground(new java.awt.Color(0, 51, 255));
         tblSimpan1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tblSimpan1.setForeground(new java.awt.Color(255, 255, 255));
+        tblSimpan1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconTambah.png"))); // NOI18N
         tblSimpan1.setText("Simpan");
         tblSimpan1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblSimpan1.addActionListener(new java.awt.event.ActionListener() {
@@ -373,7 +379,7 @@ buka(); tblSelesai.setEnabled(true); tblUbah.setEnabled(false);
             String NIP2 = nip.getText();
             try {
                 try (Statement statement = (Statement) Db_Koneksi2.getKoneksi().createStatement()) {
-                    statement.executeUpdate("update datasekolah set Nama_Sekolah='"+nm2+"',Alamat='"+Alamat2+"',Kode_Pos='"+kd_pos2+"',Kelurahan='"+kel22+"',Kecamatan='"+kec22+"',Kota='"+kota22+"',Provinsi='"+prov22+"',No_telepon='"+notel22+"',Website='"+web22+"',Email='"+email22+"',Nama_Kepsek='"+kepsek22+"',NIP='"+NIP2+"' where NPSN='"+NPSN2+"';");
+                    statement.executeUpdate("update datasekolah set Nama_Sekolah='"+nm2+"',Alamat='"+Alamat2+"',Kode_Pos='"+kd_pos2+"',Kelurahan='"+kel22+"',Kecamatan='"+kec22+"',Kota='"+kota22+"',Provinsi='"+prov22+"',No_telepon='"+notel22+"',Website='"+web22+"',Email='"+email22+"',Nama_Kepsek='"+kepsek22+"',NIP_KEPSEK='"+NIP2+"' where NPSN='"+NPSN2+"';");
                 }
                 JOptionPane.showMessageDialog(null, "Data berhasil rubah");
                 data();

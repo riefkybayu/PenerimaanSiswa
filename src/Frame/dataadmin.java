@@ -32,6 +32,24 @@ public final class dataadmin extends javax.swing.JFrame {
              model.addColumn("Jenis Kelamin");
              model.addColumn("No Telepon");
         data();
+        satuaja();
+    }
+    
+    public void satuaja(){
+        try {
+           Statement stat = (Statement) Db_Koneksi2.getKoneksi( ).createStatement( );
+           String sql        = "Select * from dataadmin;";
+           ResultSet res   = stat.executeQuery(sql);
+           while (res.next()){
+               String trigger = res.getString("NIP");
+                if (trigger != ""){
+                    tblSimpan.setEnabled(false);
+               } else {
+                   tblSimpan.setEnabled(true);
+               }
+           }
+           
+        } catch (SQLException e) {}
     }
     
     public void data(){
@@ -43,7 +61,7 @@ public final class dataadmin extends javax.swing.JFrame {
            ResultSet res   = stat.executeQuery(sql);
             while (res.next())  {    
                 nip.setText(res.getString("NIP"));
-                nama.setText(res.getString("Nama"));
+                nama.setText(res.getString("Nama_ADMIN"));
                 if ("Laki-Laki".equals(res.getString("JenisKelamin"))) {
                     laki.setSelected(true); }
                 if  ("Perempuan".equals(res.getString("JenisKelamin"))) {
@@ -58,12 +76,13 @@ public final class dataadmin extends javax.swing.JFrame {
                         while (ress.next())  { 
                             Object[ ] obj = new Object[4];
                             obj[0] = ress.getString("NIP");
-                            obj[1] = ress.getString("Nama");
+                            obj[1] = ress.getString("Nama_ADMIN");
                             obj[2] = ress.getString("JenisKelamin");
                             obj[3] = ress.getString("No_Telp");
                             model.addRow(obj);
                             }
                         } catch (SQLException e) { }
+        satuaja();
     }
 
     /**
@@ -285,6 +304,7 @@ public final class dataadmin extends javax.swing.JFrame {
             statement.executeUpdate("delete from dataadmin where NIP= ('"+nip.getText()+"');");
             JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
             data();
+            tblSimpan.setEnabled(true); nip.setText(""); nama.setText(""); notel.setText("");
         }catch (SQLException t) {
             JOptionPane.showMessageDialog(null, "Data gagal dihapus");
         }
@@ -311,7 +331,7 @@ public final class dataadmin extends javax.swing.JFrame {
             String notel2 = notel.getText();
         try {
             try (Statement statement = (Statement) Db_Koneksi2.getKoneksi().createStatement()) {
-                statement.executeUpdate("update dataadmin set Nama='"+Nama+"', JenisKelamin='"+Jenis_Kelamin+"', No_telp='"+notel2+"' where NIP='"+nip2+"';");
+                statement.executeUpdate("update dataadmin set Nama_ADMIN='"+Nama+"', JenisKelamin='"+Jenis_Kelamin+"', No_telp='"+notel2+"' where NIP='"+nip2+"';");
                 }
             JOptionPane.showMessageDialog(null, "Data berhasil rubah");
             data();

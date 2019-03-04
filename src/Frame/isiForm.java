@@ -44,7 +44,7 @@ public final class isiForm extends javax.swing.JFrame {
         model.fireTableDataChanged( );
                     try {
                         Statement stat = (Statement) Db_Koneksi2.getKoneksi( ).createStatement( );
-                        String sql2        = "Select * from datasiswabaru order by Nama asc;";
+                        String sql2        = "Select * from datasiswabaru order by NIS asc;";
                         ResultSet ress   = stat.executeQuery(sql2);
                         while (ress.next())  { 
                             Object[ ] obj = new Object[9];

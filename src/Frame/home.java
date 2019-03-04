@@ -5,19 +5,47 @@
  */
 package Frame;
 
+import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.view.JasperViewer;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 /**
  *
  * @author Acer
  */
 public class home extends javax.swing.JFrame {
+Db_Koneksi2 konek = new Db_Koneksi2();
+Map param = new HashMap();
+JasperReport Jasrep; JasperPrint Jaspri; JasperDesign JasDes;
 
     /**
      * Creates new form home
      */
     public home() {
         initComponents();
+        data();
+    }
+    public void data(){
+        try {
+           Statement stat = (Statement) Db_Koneksi2.getKoneksi( ).createStatement( );
+           String sql        = "Select * from datasekolah";
+           ResultSet res   = stat.executeQuery(sql);
+            while (res.next())  {                
+                alamat.setText(""+res.getString("Alamat")+", Kec."+res.getString("Kecamatan")+", "+res.getString("Kota")+"-"+res.getString("Provinsi")+"");
+            }
+        } catch (SQLException e) {
+        }
     }
 
     /**
@@ -34,6 +62,8 @@ public class home extends javax.swing.JFrame {
         selamatdatang1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         garishitam = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        alamat = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -56,16 +86,16 @@ public class home extends javax.swing.JFrame {
 
         selamatdatang.setFont(new java.awt.Font("Showcard Gothic", 1, 24)); // NOI18N
         selamatdatang.setText("APLIKASI PENERIMAAN SISWA BARU");
-        getContentPane().add(selamatdatang, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, -1, 70));
+        getContentPane().add(selamatdatang, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, -1, 70));
 
         smp.setFont(new java.awt.Font("Showcard Gothic", 1, 36)); // NOI18N
         smp.setForeground(new java.awt.Color(0, 51, 255));
         smp.setText("smp pgri 1 ciputat");
-        getContentPane().add(smp, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, -1, 70));
+        getContentPane().add(smp, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, -1, 70));
 
         selamatdatang1.setFont(new java.awt.Font("Showcard Gothic", 1, 24)); // NOI18N
         selamatdatang1.setText("SELAMAT DATANG");
-        getContentPane().add(selamatdatang1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, -1, 70));
+        getContentPane().add(selamatdatang1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, -1, 70));
 
         jButton1.setBackground(new java.awt.Color(0, 102, 255));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -83,6 +113,13 @@ public class home extends javax.swing.JFrame {
         garishitam.setBackground(new java.awt.Color(0, 0, 0));
         garishitam.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(garishitam, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, 122, 800, 2));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/logo_new.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, -1, -1));
+
+        alamat.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        alamat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 800, 20));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/depann.png"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
@@ -138,10 +175,20 @@ public class home extends javax.swing.JFrame {
 
         jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconOutput (2).png"))); // NOI18N
         jMenuItem6.setText("Data Siswa Baru");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem6);
 
         jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconOutput (2).png"))); // NOI18N
         jMenuItem7.setText("Pembayaran");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem7);
 
         jMenuBar1.add(jMenu3);
@@ -157,7 +204,7 @@ public class home extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       int confirm = JOptionPane.showConfirmDialog(this,
+        int confirm = JOptionPane.showConfirmDialog(this,
         "Anda Yakin Untuk Keluar?",
         "Konfirmasi",
         JOptionPane.YES_NO_OPTION,
@@ -177,6 +224,35 @@ public class home extends javax.swing.JFrame {
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         new pembayaran().setVisible(true); dispose();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        JOptionPane.showMessageDialog( null, "Mohon tunggu sebentar, sedang memuat laporan!");
+        try {
+            File file = new File("src/report/report_siswa.jrxml");
+           JasDes = JRXmlLoader.load(file);
+            //param.clear();
+            Jasrep = JasperCompileManager.compileReport(JasDes);
+            Jaspri = JasperFillManager.fillReport(Jasrep, null, konek.getKoneksi());
+            JasperViewer.viewReport(Jaspri, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        JOptionPane.showMessageDialog( null, "Mohon tunggu sebentar, sedang memuat laporan!");
+        try {
+            File file = new File("src/report/report_pembayaran.jrxml");
+           JasDes = JRXmlLoader.load(file);
+            //param.clear();
+            Jasrep = JasperCompileManager.compileReport(JasDes);
+            Jaspri = JasperFillManager.fillReport(Jasrep, null, konek.getKoneksi());
+            JasperViewer.viewReport(Jaspri, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,9 +290,11 @@ public class home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel alamat;
     private javax.swing.JLabel background;
     private javax.swing.JPanel garishitam;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
