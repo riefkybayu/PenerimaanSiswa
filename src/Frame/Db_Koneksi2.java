@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 public class Db_Koneksi2 {
       private static Connection conn;
       public static Connection getKoneksi( ){
-               String host       = "jdbc:mysql://localhost:3306/kkp",
+                          String host       = "jdbc:mysql://localhost:3306/kkp",
                           user       = "root",
                           pass       = "";
                try{

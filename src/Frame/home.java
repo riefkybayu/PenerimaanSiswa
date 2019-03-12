@@ -24,7 +24,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
  *
  * @author Acer
  */
-public class home extends javax.swing.JFrame {
+public final class home extends javax.swing.JFrame {
 Db_Koneksi2 konek = new Db_Koneksi2();
 Map param = new HashMap();
 JasperReport Jasrep; JasperPrint Jaspri; JasperDesign JasDes;
@@ -243,7 +243,7 @@ JasperReport Jasrep; JasperPrint Jaspri; JasperDesign JasDes;
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         JOptionPane.showMessageDialog( null, "Mohon tunggu sebentar, sedang memuat laporan!");
         try {
-            File file = new File("src/report/report_pembayaran.jrxml");
+            File file = new File("src/report/pembayaran_1.jrxml");
            JasDes = JRXmlLoader.load(file);
             //param.clear();
             Jasrep = JasperCompileManager.compileReport(JasDes);

@@ -340,11 +340,11 @@
 				<text><![CDATA[Kepala Sekolah]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="43" y="129" width="37" height="20" uuid="56781628-d2f8-4517-85bc-41c29dd3d71d"/>
+				<reportElement x="43" y="129" width="24" height="20" uuid="56781628-d2f8-4517-85bc-41c29dd3d71d"/>
 				<text><![CDATA[NIP : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="80" y="129" width="100" height="20" uuid="463dc518-d212-41d6-8f83-c3f5175124fe"/>
+				<reportElement x="67" y="129" width="113" height="20" uuid="463dc518-d212-41d6-8f83-c3f5175124fe"/>
 				<textFieldExpression><![CDATA[$F{NIP_KEPSEK}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -355,31 +355,31 @@
 				<textFieldExpression><![CDATA[$F{Nama_Kepsek}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="352" y="29" width="100" height="20" uuid="e4615ab3-1903-48b0-8b54-18d53bfd5108"/>
+				<reportElement x="367" y="29" width="100" height="20" uuid="e4615ab3-1903-48b0-8b54-18d53bfd5108"/>
 				<text><![CDATA[Tangerang Selatan,]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="352" y="49" width="113" height="20" uuid="a58299fa-9f76-4fa0-9ed3-00045ee4423b"/>
+				<reportElement x="367" y="49" width="113" height="20" uuid="a58299fa-9f76-4fa0-9ed3-00045ee4423b"/>
 				<text><![CDATA[Bagian Administrasi]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="352" y="109" width="133" height="20" uuid="4a171543-3d55-4c90-9be6-26ba0214f6ac"/>
+				<reportElement x="367" y="109" width="133" height="20" uuid="4a171543-3d55-4c90-9be6-26ba0214f6ac"/>
 				<textElement>
 					<font isBold="true" isUnderline="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Nama_ADMIN}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd-MMM-yy">
-				<reportElement x="448" y="29" width="100" height="20" uuid="360b071f-f5a6-4d79-8f08-45d6b19de5f4"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="352" y="130" width="35" height="20" uuid="2a283f6f-f2a7-466a-8613-a6d71daba403"/>
+				<reportElement x="367" y="130" width="24" height="20" uuid="2a283f6f-f2a7-466a-8613-a6d71daba403"/>
 				<text><![CDATA[NIP : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="387" y="130" width="100" height="20" uuid="87f3f025-ab82-408b-8475-94e4dc2b5c14"/>
+				<reportElement x="391" y="130" width="111" height="20" uuid="87f3f025-ab82-408b-8475-94e4dc2b5c14"/>
 				<textFieldExpression><![CDATA[$F{NIP}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="467" y="29" width="88" height="20" uuid="0ea433d4-ce21-45b9-bb64-8f5d20912565"/>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy", new java.util.Locale("id")).format(new java.util.Date())]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
