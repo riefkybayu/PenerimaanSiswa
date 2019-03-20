@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2c8cf27a-83cc-4cf5-8fb9-1499cb766b59">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="2"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString language="SQL">
 		<![CDATA[select * from datasiswabaru, datasekolah, dataadmin]]>
@@ -50,10 +50,6 @@
 	</background>
 	<title>
 		<band height="131" splitType="Stretch">
-			<image>
-				<reportElement x="75" y="0" width="139" height="94" uuid="67603240-b563-4ad6-8793-67d35ee64fde"/>
-				<imageExpression><![CDATA["C:\\Mantap\\src\\Frame\\gambar\\logo_new.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="263" y="14" width="342" height="20" uuid="3001b213-074b-4b16-88c2-bb091f460610"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -91,6 +87,10 @@
 					<pen lineWidth="2.0"/>
 				</graphicElement>
 			</line>
+			<image>
+				<reportElement x="80" y="-1" width="152" height="101" uuid="50d2d129-464a-45bf-8756-d90e9f003f53"/>
+				<imageExpression><![CDATA["D:\\ProgramBayu\\github\\kkp\\src\\Frame\\gambar\\logo_new.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

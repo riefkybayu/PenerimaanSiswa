@@ -142,8 +142,8 @@
 				</graphicElement>
 			</line>
 			<image>
-				<reportElement x="20" y="0" width="148" height="105" uuid="480e1d65-4275-49f2-9ee8-8dc521e86c5f"/>
-				<imageExpression><![CDATA["C:\\Mantap\\src\\Frame\\gambar\\logo_new.png"]]></imageExpression>
+				<reportElement x="43" y="0" width="118" height="79" uuid="d90babe4-26ea-4375-bbbd-3f2001a5cd1b"/>
+				<imageExpression><![CDATA["D:\\ProgramBayu\\github\\kkp\\src\\Frame\\gambar\\logo_new.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
