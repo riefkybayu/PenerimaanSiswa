@@ -104,7 +104,7 @@
 			<staticText>
 				<reportElement x="180" y="0" width="359" height="18" uuid="9451d8c3-c871-4743-a027-22a1b49e87dd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="13" isBold="true"/>
+					<font fontName="SansSerif" size="13" isBold="true"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
 				<text><![CDATA[LAPORAN PEMBAYARAN PESERTA DIDIK BARU]]></text>
@@ -112,7 +112,7 @@
 			<staticText>
 				<reportElement x="202" y="36" width="300" height="23" uuid="b8a8f7ea-8806-451d-a696-9d3cedc06af3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="13" isBold="true"/>
+					<font fontName="SansSerif" size="13" isBold="true"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
 				<text><![CDATA[SMP PGRI 1 CIPUTAT]]></text>
@@ -120,7 +120,7 @@
 			<staticText>
 				<reportElement x="202" y="18" width="300" height="18" uuid="857552e2-e547-4990-9981-364ba8b95f0d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="13" isBold="true"/>
+					<font fontName="SansSerif" size="13" isBold="true"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
 				<text><![CDATA[TAHUN AJARAN 2018/2019]]></text>
