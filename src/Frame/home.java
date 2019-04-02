@@ -6,6 +6,8 @@
 package Frame;
 
 import java.io.File;
+import java.io.InputStream;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,6 +17,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.view.JasperViewer;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -226,14 +229,15 @@ JasperReport Jasrep; JasperPrint Jaspri; JasperDesign JasDes;
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        JOptionPane.showMessageDialog( null, "Mohon tunggu sebentar, sedang memuat laporan!");
-        try {
-            File file = new File("src/report/report_siswa.jrxml");
-           JasDes = JRXmlLoader.load(file);
-            //param.clear();
-            Jasrep = JasperCompileManager.compileReport(JasDes);
-            Jaspri = JasperFillManager.fillReport(Jasrep, null, konek.getKoneksi());
-            JasperViewer.viewReport(Jaspri, false);
+        //JOptionPane.showMessageDialog( null, "Mohon tunggu sebentar, sedang memuat laporan!");
+        try {               
+            JasperReport jasperReport = null;
+            InputStream path=this.getClass().getResourceAsStream("report_siswa.jrxml");    
+            JasperPrint jasperPrint = null;
+            jasperReport = JasperCompileManager.compileReport(path);
+            HashMap parameters = new HashMap();
+            jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, Db_Koneksi2.getKoneksi());
+            JasperViewer.viewReport(jasperPrint,false);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -241,16 +245,18 @@ JasperReport Jasrep; JasperPrint Jaspri; JasperDesign JasDes;
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        JOptionPane.showMessageDialog( null, "Mohon tunggu sebentar, sedang memuat laporan!");
-        try {
-            File file = new File("src/report/pembayaran_1.jrxml");
-           JasDes = JRXmlLoader.load(file);
-            //param.clear();
-            Jasrep = JasperCompileManager.compileReport(JasDes);
-            Jaspri = JasperFillManager.fillReport(Jasrep, null, konek.getKoneksi());
-            JasperViewer.viewReport(Jaspri, false);
-        } catch (Exception e) {
-            e.printStackTrace();
+        //JOptionPane.showMessageDialog( null, "Mohon tunggu sebentar, sedang memuat laporan!");
+        try {               
+            JasperReport jasperReport = null;
+            InputStream path=this.getClass().getResourceAsStream("pembayaran_1.jrxml");    
+            JasperPrint jasperPrint = null;
+            jasperReport = JasperCompileManager.compileReport(path);
+            HashMap parameters = new HashMap();
+            jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, Db_Koneksi2.getKoneksi());
+            JasperViewer.viewReport(jasperPrint,false);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            //e.printStackTrace();
         }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
