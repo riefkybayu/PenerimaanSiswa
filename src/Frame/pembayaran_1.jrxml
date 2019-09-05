@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="LOGO" class="java.io.InputStream"/>
 	<queryString>
 		<![CDATA[select * from databayar, datasiswabaru, datasekolah, dataadmin where databayar.nis=datasiswabaru.NIS ORDER BY datasiswabaru.NIS ASC]]>
 	</queryString>
@@ -141,9 +142,9 @@
 					<pen lineWidth="2.0" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
-			<image>
+			<image onErrorType="Blank">
 				<reportElement x="43" y="0" width="118" height="79" uuid="d90babe4-26ea-4375-bbbd-3f2001a5cd1b"/>
-				<imageExpression><![CDATA["D:\\ProgramBayu\\github\\kkp\\src\\Frame\\gambar\\logo_new.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{LOGO}]]></imageExpression>
 			</image>
 		</band>
 	</title>

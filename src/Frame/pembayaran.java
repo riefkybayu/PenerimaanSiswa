@@ -6,12 +6,19 @@
 package Frame;
 
 import java.awt.event.KeyEvent;
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -116,6 +123,7 @@ private void buka() {
         tblUbah = new javax.swing.JButton();
         tblHapus = new javax.swing.JButton();
         tblKeluar = new javax.swing.JButton();
+        tblcetaksatu = new javax.swing.JButton();
         garis = new javax.swing.JPanel();
         garis2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -252,6 +260,20 @@ private void buka() {
             }
         });
         getContentPane().add(tblKeluar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 440, 110, 35));
+
+        tblcetaksatu.setBackground(new java.awt.Color(0, 51, 255));
+        tblcetaksatu.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        tblcetaksatu.setForeground(new java.awt.Color(255, 255, 255));
+        tblcetaksatu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Frame/gambar/iconOutput (2).png"))); // NOI18N
+        tblcetaksatu.setText("CETAK");
+        tblcetaksatu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblcetaksatu.setEnabled(false);
+        tblcetaksatu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tblcetaksatuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tblcetaksatu, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 380, 110, 35));
 
         garis.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
 
@@ -417,6 +439,7 @@ private void buka() {
         buka(); 
         tblUbah.setEnabled(true);
         tblHapus.setEnabled(true);
+        tblcetaksatu.setEnabled(true);
     }//GEN-LAST:event_tabelsiswaMouseClicked
 
     private void tblSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tblSimpanActionPerformed
@@ -545,6 +568,30 @@ private void buka() {
             } else { status.setText("Belum Lunas"); }
     }//GEN-LAST:event_statusMouseClicked
 
+    private void tblcetaksatuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tblcetaksatuActionPerformed
+        try {               
+            JasperReport jasperReport = null;
+            InputStream path=this.getClass().getResourceAsStream("report_bayar_individu.jrxml");
+            InputStream logo = this.getClass().getResourceAsStream("logo_new.jpg");
+            JasperPrint jasperPrint = null;
+            jasperReport = JasperCompileManager.compileReport(path);
+            HashMap parameters = new HashMap();
+            parameters.put("kode", kode.getText());
+            parameters.put("tanggal", tgl.getText());
+            parameters.put("nis", nis.getText());
+            parameters.put("nama", nama.getText());
+            parameters.put("total", total.getText());
+            parameters.put("telah", telah.getText());
+            parameters.put("sisah", sisah.getText());
+            parameters.put("status", status.getText());
+            parameters.put("LOGO", logo);
+            jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, Db_Koneksi2.getKoneksi());
+            JasperViewer.viewReport(jasperPrint,false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_tblcetaksatuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -616,6 +663,7 @@ private void buka() {
     private javax.swing.JLabel tblMinimaze;
     private javax.swing.JButton tblSimpan;
     private javax.swing.JButton tblUbah;
+    private javax.swing.JButton tblcetaksatu;
     private javax.swing.JTextField telah;
     private javax.swing.JTextField tgl;
     private javax.swing.JTextField total;

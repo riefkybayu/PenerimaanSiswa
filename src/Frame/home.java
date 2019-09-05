@@ -229,33 +229,37 @@ JasperReport Jasrep; JasperPrint Jaspri; JasperDesign JasDes;
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        //JOptionPane.showMessageDialog( null, "Mohon tunggu sebentar, sedang memuat laporan!");
         try {               
             JasperReport jasperReport = null;
-            InputStream path=this.getClass().getResourceAsStream("report_siswa.jrxml");    
+            InputStream path=this.getClass().getResourceAsStream("report_siswa.jrxml");
+            InputStream logo = this.getClass().getResourceAsStream("logo_new.jpg");
             JasperPrint jasperPrint = null;
-            jasperReport = JasperCompileManager.compileReport(path);
+            jasperReport = (JasperReport)JasperCompileManager.compileReport(path);
             HashMap parameters = new HashMap();
+            
+            parameters.put("LOGO", logo);
             jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, Db_Koneksi2.getKoneksi());
             JasperViewer.viewReport(jasperPrint,false);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(null, e);
+            //e.printStackTrace();
         }
         
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        //JOptionPane.showMessageDialog( null, "Mohon tunggu sebentar, sedang memuat laporan!");
         try {               
             JasperReport jasperReport = null;
-            InputStream path=this.getClass().getResourceAsStream("pembayaran_1.jrxml");    
+            InputStream path=this.getClass().getResourceAsStream("pembayaran_1.jrxml"); 
+            InputStream logo = this.getClass().getResourceAsStream("logo_new.jpg");
             JasperPrint jasperPrint = null;
             jasperReport = JasperCompileManager.compileReport(path);
             HashMap parameters = new HashMap();
+            parameters.put("LOGO", logo);
             jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, Db_Koneksi2.getKoneksi());
             JasperViewer.viewReport(jasperPrint,false);
-        } catch (JRException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
             //e.printStackTrace();
         }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
